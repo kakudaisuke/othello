@@ -30,38 +30,22 @@ class Board {
   }
 }
 
-
-// function drawBoard_tomoya() {
-//   const board = "-----------------";
-//   console.log('hello');
-//   return board;
-// }
-
-// const board = new Board
-// drawBoard_tomoya()
-// console.log(board.drawBoard());
+const board = new Board
+console.log(board.drawBoard());
 
 
 const MAX = 60, MIN = 0;
 let cursor = 30, place, key;
 console.log(`\n\n${(new Array(20)).join(' ')}[Y] <- -> [X]  決定: [q]\n`);
 while (true) {
-  if (place == NULL) {
     console.log('\x1B[1A\x1B[K|' + (new Array(cursor + 1)).join('-')
                 + 'O'
                 + (new Array(MAX - cursor + 1)).join('-') + '| '
                 + 'now:' + cursor);
-  } else {
-    console.log('\x1B[1A\x1B[K|' + (new Array(cursor + 1)).join('-')
-                + 'O'
-                + (new Array(MAX - cursor + 1)).join('-') + '| '
-                + 'now:' + cursor);
-  }
-  key = readlineSync.keyIn('',
+  const key = readlineSync.keyIn('',
     {hideEchoBack: true, mask: '', limit: 'yxpq'});
   if (key === 'y') { if (cursor > MIN) { cursor-=2; } }
   else if (key === 'x') { if (cursor < MAX) { cursor+=2; } }
-  else if (key === 'p') { if (cursor > MAX && cursor > MIN) { place = cursor; } }
   else if (key === 'q') { break; }
 }
 console.log(`\nあなたが決めた値: ${cursor}`);
