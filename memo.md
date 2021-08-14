@@ -12,3 +12,6 @@ https://jsprimer.net/use-case/nodecli/
 
 readlineSync
 https://www.npmjs.com/package/readline-sync#quick_start-b
+
+Node.jsで対話的CLIを作る
+https://note.kiriukun.com/entry/20200313-interactive-cli-example-with-nodejs

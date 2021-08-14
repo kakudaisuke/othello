@@ -30,6 +30,9 @@ class Board {
     board += "  -------- \n";
     console.log(board);
   }
+  update() {
+
+  }
 }
 
 const board = new Board;
@@ -47,18 +50,46 @@ class Stone {
   }
 }
 
-const readline = require('readline').createInterface({
-  input: process.stdin,
-  output: process.stdout
-});
 
-for (let i = 0; i < 5; i++) {
-  readline.question(`${i+1}回目です。どこに置きますか？ `, (params) => {
-    const [ row, col ] = params;
-    console.log(`${row}, ${col}に置きます。`);
-    const stone = new Stone;
-    stone.place(row - 1, col - 1);
-    readline.close();
+const readline = require('readline');
+
+const main = async () => {
+  for (;;) {
+    const answer = await prompt(`どこに置きますか？（例）3,4  `);
+    if (answer === "q") {
+      console.log("ゲームを終了します。");
+      break;
+    } else {
+      const [ row, col ] = answer.split(",");
+      console.log(`${row}, ${col}に置きます。`);
+      const stone = new Stone;
+      stone.place(row - 1, col - 1);
+    }
+    console.log("\n");
+  }
+};
+
+const prompt = async (msg) => {
+  console.log(msg);
+  const answer = await question('> ');
+  return answer;
+};
+
+const question = (question) => {
+  const readlineInterface = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
   });
-}
+  return new Promise((resolve) => {
+    readlineInterface.question(question, (answer) => {
+      resolve(answer);
+      readlineInterface.close();
+    });
+  });
+};
+
+// 起動
+(async () => {
+  await main();
+})();
 
