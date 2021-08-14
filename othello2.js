@@ -47,18 +47,21 @@ class Stone {
   }
 }
 
-const readline = require('readline').createInterface({
+
+const readline = require('readline');
+
+const readlineInterface = readline.createInterface({
   input: process.stdin,
   output: process.stdout
 });
 
 for (let i = 0; i < 5; i++) {
-  readline.question(`${i+1}回目です。どこに置きますか？ `, (params) => {
-    const [ row, col ] = params;
+  readlineInterface.question(`${i+1}回目です。どこに置きますか？（例）3,4 `, (params) => {
+    const [ row, col ] = params.split(",");
     console.log(`${row}, ${col}に置きます。`);
     const stone = new Stone;
     stone.place(row - 1, col - 1);
-    readline.close();
+    readlineInterface.close();
   });
 }
 
