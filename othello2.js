@@ -43,10 +43,13 @@ class Stone {
     this.row = row;
     this.col = col;
   }
-  place(row, col) {
-    const b = new Board();
-    b.grid[row][col] = 1;
-    b.draw();
+  place(n, row, col) {
+    if(n % 2 === 0) {
+      board.grid[row][col] = 1;
+    } else {
+      board.grid[row][col] = -1;
+    }
+    board.draw();
   }
 }
 
@@ -54,7 +57,7 @@ class Stone {
 const readline = require('readline');
 
 const main = async () => {
-  for (;;) {
+  for (let n = 0; n < 60; n++) {
     const answer = await prompt(`どこに置きますか？（例）3,4  `);
     if (answer === "q") {
       console.log("ゲームを終了します。");
@@ -63,7 +66,7 @@ const main = async () => {
       const [ row, col ] = answer.split(",");
       console.log(`${row}, ${col}に置きます。`);
       const stone = new Stone;
-      stone.place(row - 1, col - 1);
+      stone.place(n, row - 1, col - 1);
     }
     console.log("\n");
   }
@@ -92,4 +95,3 @@ const question = (question) => {
 (async () => {
   await main();
 })();
-
