@@ -1,5 +1,7 @@
 class Board {
   constructor() {
+    this.height = 8;
+    this.width = 8;
     this.grid = [
       [0,0,0,0,0,0,0,0],
       [0,0,0,0,0,0,0,0],
@@ -30,13 +32,7 @@ class Board {
     board += "  -------- \n";
     console.log(board);
   }
-  update() {
-
-  }
 }
-
-const board = new Board;
-board.draw();
 
 class Stone {
   constructor(row, col) {
@@ -44,12 +40,22 @@ class Stone {
     this.col = col;
   }
   place(n, row, col) {
-    if(n % 2 === 0) {
+    // もしマスの外だったら置けない
+    if (row >= 8 || row <= -1 || col >= 8 || row <= -1) {
+      console.log("そこには置けないよ(>_<)");
+      return;
+    } 
+    else if (board.grid[row][col] !== 0) {
+      // 空のマスでないと置けない
+      console.log("そこには置けないよ(>_<)");
+      return;
+    }
+    // 偶数回ならo、奇数回ならxを置く
+    if (n % 2 === 0) {
       board.grid[row][col] = 1;
     } else {
       board.grid[row][col] = -1;
     }
-    board.draw();
   }
 }
 
@@ -64,11 +70,13 @@ const main = async () => {
       break;
     } else {
       const [ row, col ] = answer.split(",");
-      console.log(`${row}, ${col}に置きます。`);
+      console.log(`${row}, ${col}に置きます。\n`);
       const stone = new Stone;
       stone.place(n, row - 1, col - 1);
     }
+    // 次のターンのボードを表示する
     console.log("\n");
+    board.draw();
   }
 };
 
@@ -90,6 +98,10 @@ const question = (question) => {
     });
   });
 };
+
+// 初回のボード描画
+const board = new Board;
+board.draw();
 
 // 起動
 (async () => {
